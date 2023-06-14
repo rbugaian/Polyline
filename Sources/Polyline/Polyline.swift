@@ -45,7 +45,7 @@ import MapKit
 public struct Polyline {
     
     /// The array of coordinates (nil if polyline cannot be decoded)
-    public let coordinates: [LocationCoordinate2D]?
+    public let coordinates: [CLLocationCoordinate2D]?
     /// The encoded polyline
     public let encodedPolyline: String
     
