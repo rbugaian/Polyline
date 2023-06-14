@@ -75,10 +75,10 @@ public struct Polyline {
     
     /// This designated initializer encodes a `[CLLocationCoordinate2D]`
     ///
-    /// - parameter coordinates: The `Array` of `LocationCoordinate2D`s (that is, `CLLocationCoordinate2D`s) that you want to encode
+    /// - parameter coordinates: The `Array` of `CLLocationCoordinate2D`s (that is, `CLLocationCoordinate2D`s) that you want to encode
     /// - parameter levels: The optional `Array` of levels  that you want to encode (default: `nil`)
     /// - parameter precision: The precision used for encoding (default: `1e5`)
-    public init(coordinates: [LocationCoordinate2D], levels: [UInt32]? = nil, precision: Double = 1e5) {
+    public init(coordinates: [CLLocationCoordinate2D], levels: [UInt32]? = nil, precision: Double = 1e5) {
         
         self.coordinates = coordinates
         self.levels = levels
@@ -121,11 +121,11 @@ public struct Polyline {
 
 /// This function encodes an `[CLLocationCoordinate2D]` to a `String`
 ///
-/// - parameter coordinates: The `Array` of `LocationCoordinate2D`s (that is, `CLLocationCoordinate2D`s) that you want to encode
+/// - parameter coordinates: The `Array` of `CLLocationCoordinate2D`s (that is, `CLLocationCoordinate2D`s) that you want to encode
 /// - parameter precision: The precision used to encode coordinates (default: `1e5`)
 ///
 /// - returns: A `String` representing the encoded Polyline
-public func encodeCoordinates(_ coordinates: [LocationCoordinate2D], precision: Double = 1e5) -> String {
+public func encodeCoordinates(_ coordinates: [CLLocationCoordinate2D], precision: Double = 1e5) -> String {
     
     var previousCoordinate = IntegerCoordinates(0, 0)
     var encodedPolyline = ""
@@ -174,13 +174,13 @@ public func encodeLevels(_ levels: [UInt32]) -> String {
 /// - parameter precision: The precision used to decode coordinates (default: `1e5`)
 ///
 /// - returns: A `[CLLocationCoordinate2D]` representing the decoded polyline if valid, `nil` otherwise
-public func decodePolyline(_ encodedPolyline: String, precision: Double = 1e5) -> [LocationCoordinate2D]? {
+public func decodePolyline(_ encodedPolyline: String, precision: Double = 1e5) -> [CLLocationCoordinate2D]? {
     let data = encodedPolyline.data(using: .utf8)!
-    return data.withUnsafeBytes { byteArray -> [LocationCoordinate2D]? in
+    return data.withUnsafeBytes { byteArray -> [CLLocationCoordinate2D]? in
         let length = data.count
         var position = 0
         
-        var decodedCoordinates = [LocationCoordinate2D]()
+        var decodedCoordinates = [CLLocationCoordinate2D]()
         
         var lat = 0.0
         var lon = 0.0
@@ -196,7 +196,7 @@ public func decodePolyline(_ encodedPolyline: String, precision: Double = 1e5) -
                 return nil
             }
             
-            decodedCoordinates.append(LocationCoordinate2D(latitude: lat, longitude: lon))
+            decodedCoordinates.append(CLLocationCoordinate2D(latitude: lat, longitude: lon))
         }
         
         return decodedCoordinates
